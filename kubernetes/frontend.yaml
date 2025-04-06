@@ -16,6 +16,8 @@ spec:
       labels:
         app: frontend
     spec:
+      nodeSelector:
+        role: frontend
       containers:
         - name: frontend
           image: trainwithshubham/wanderlust-frontend-beta:v2.2

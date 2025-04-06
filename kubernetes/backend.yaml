@@ -16,6 +16,8 @@ spec:
       labels:
         app: backend
     spec:
+      nodeSelector:
+        role: backend
       containers:
         - name: backend
           image: trainwithshubham/wanderlust-backend-beta:v2.1

@@ -1,0 +1,44 @@
+#New installation
+
+sudo apt-get update
+sudo apt-get install docker.io -y
+
+sudo usermod -aG docker ubuntu && newgrp docker
+
+docker network create wanderlust-network
+
+docker run -d \
+  --name mongodb \
+  --network wanderlust-network \
+  -p 27017:27017 \
+  mongo
+
+
+docker run -d \
+  --name redis-service \
+  --network wanderlust-network \
+  -p 6379:6379 \
+  redis
+
+
+git clone https://github.com/roshankharode/Wanderlust-Mega-Project.git
+
+VITE_API_PATH=http://3.111.41.186:8080
+
+
+docker build -t back:01 ./backend
+docker build -t frd:01 ./frontend
+
+
+docker run -d \
+  --name backend \
+  --network wanderlust-network \
+  -p 8080:8080 \
+   back:01
+
+docker run -d \
+  --name frontend \
+  --network wanderlust-network \
+  -p 5173:5173 \
+   frd:01
+
